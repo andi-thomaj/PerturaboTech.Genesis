@@ -7,18 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+        <PackageReference Include="LanguageExt.Core" Version="4.4.9" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Apis\Users\Requests\" />
-      <Folder Include="Apis\Users\Responses\" />
-      <Folder Include="Apis\Users\Validations\" />
-      <Folder Include="Data\Configurations\" />
-      <Folder Include="Data\Entities\" />
       <Folder Include="Data\Migrations\" />
       <Folder Include="Helpers\" />
-      <Folder Include="Services\" />
     </ItemGroup>
 
 </Project>
