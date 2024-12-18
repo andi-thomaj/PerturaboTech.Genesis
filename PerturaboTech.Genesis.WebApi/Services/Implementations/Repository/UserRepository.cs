@@ -1,10 +1,11 @@
 ﻿using PerturaboTech.Genesis.WebApi.Apis.Users.Requests;
+using PerturaboTech.Genesis.WebApi.Data;
 using PerturaboTech.Genesis.WebApi.Data.Entities;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions.Repository;
 
 namespace PerturaboTech.Genesis.WebApi.Services.Implementations.Repository;
 
-public class UserRepository : IUserRepository
+public class UserRepository(ApplicationDbContext dbContext) : IUserRepository
 {
     public Task<User?> GetUserByEmail(string email)
     {
