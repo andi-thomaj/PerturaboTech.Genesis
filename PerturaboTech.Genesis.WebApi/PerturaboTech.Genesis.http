@@ -1,6 +1,0 @@
-@PerturaboTech.Genesis_HostAddress = http://localhost:5257
-
-GET {{PerturaboTech.Genesis_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
