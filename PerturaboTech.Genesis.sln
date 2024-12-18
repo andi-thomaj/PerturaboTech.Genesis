@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerturaboTech.Genesis.WebApi", "PerturaboTech.Genesis.WebApi\PerturaboTech.Genesis.WebApi.csproj", "{177E901A-0C28-4AC3-AD14-DF7A26B2BC5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{43F36CFA-444E-4111-B08E-05EF4A71BD47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{429F87F9-399A-49CC-B5CD-5347CD488D11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerturaboTech.Genesis.WebApi.ArchitectureTests", "PerturaboTech.Genesis.WebApi.ArchitectureTests\PerturaboTech.Genesis.WebApi.ArchitectureTests.csproj", "{F4616989-612B-4E4F-8E3E-84EC9D90E340}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerturaboTech.Genesis.WebApi.Shared.Tests", "PerturaboTech.Genesis.WebApi.Shared.Tests\PerturaboTech.Genesis.WebApi.Shared.Tests.csproj", "{95FDEDA2-4F9D-4F08-BAC6-5326ACB9E5C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerturaboTech.Genesis.WebApi.IntegrationTests", "PerturaboTech.Genesis.WebApi.IntegrationTests\PerturaboTech.Genesis.WebApi.IntegrationTests.csproj", "{3A529DAF-3CEC-40A2-A3A7-BE1F6E99FD57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{177E901A-0C28-4AC3-AD14-DF7A26B2BC5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{177E901A-0C28-4AC3-AD14-DF7A26B2BC5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{177E901A-0C28-4AC3-AD14-DF7A26B2BC5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{177E901A-0C28-4AC3-AD14-DF7A26B2BC5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4616989-612B-4E4F-8E3E-84EC9D90E340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4616989-612B-4E4F-8E3E-84EC9D90E340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4616989-612B-4E4F-8E3E-84EC9D90E340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4616989-612B-4E4F-8E3E-84EC9D90E340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95FDEDA2-4F9D-4F08-BAC6-5326ACB9E5C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95FDEDA2-4F9D-4F08-BAC6-5326ACB9E5C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95FDEDA2-4F9D-4F08-BAC6-5326ACB9E5C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95FDEDA2-4F9D-4F08-BAC6-5326ACB9E5C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A529DAF-3CEC-40A2-A3A7-BE1F6E99FD57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A529DAF-3CEC-40A2-A3A7-BE1F6E99FD57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A529DAF-3CEC-40A2-A3A7-BE1F6E99FD57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A529DAF-3CEC-40A2-A3A7-BE1F6E99FD57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{177E901A-0C28-4AC3-AD14-DF7A26B2BC5A} = {43F36CFA-444E-4111-B08E-05EF4A71BD47}
+		{F4616989-612B-4E4F-8E3E-84EC9D90E340} = {429F87F9-399A-49CC-B5CD-5347CD488D11}
+		{95FDEDA2-4F9D-4F08-BAC6-5326ACB9E5C2} = {429F87F9-399A-49CC-B5CD-5347CD488D11}
+		{3A529DAF-3CEC-40A2-A3A7-BE1F6E99FD57} = {429F87F9-399A-49CC-B5CD-5347CD488D11}
+	EndGlobalSection
+EndGlobal
