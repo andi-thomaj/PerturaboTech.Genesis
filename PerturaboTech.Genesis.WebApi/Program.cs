@@ -11,7 +11,7 @@ namespace PerturaboTech.Genesis.WebApi;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         var configuration = builder.Configuration;
@@ -33,6 +33,7 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
             app.MapOpenApi();
+            await app.Services.InitializeDbAsync();
         }
 
         app.UseHttpsRedirection();
