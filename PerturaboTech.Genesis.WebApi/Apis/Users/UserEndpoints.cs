@@ -11,7 +11,7 @@ public static class UserEndpoints
 {
         public static IEndpointRouteBuilder MapUsersEndpoints(this IEndpointRouteBuilder builder)
         {
-            var routeGroupBuilder = builder.MapGroup("api/users");
+            var routeGroupBuilder = builder.MapGroup("api/users").RequireAuthorization();
 
             routeGroupBuilder.MapGet("{email}", GetUserByEmail).WithOpenApi();
             routeGroupBuilder.MapPost(string.Empty, CreateUser);
