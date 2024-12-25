@@ -2,11 +2,12 @@
 using PerturaboTech.Genesis.WebApi.Apis.Users.Responses;
 using PerturaboTech.Genesis.WebApi.Helpers;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions;
+using PerturaboTech.Genesis.WebApi.Services.Abstractions.Infrastructure;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions.Repository;
 
 namespace PerturaboTech.Genesis.WebApi.Services.Implementations;
 
-public class UserService(IUserRepository userRepository) : IUserService
+public class UserService(IUserRepository userRepository, ITokenProvider tokenProvider) : IUserService
 {
     public async Task<Result<GetUserByEmailResponse>> GetUserByEmail(string email)
     {
@@ -37,8 +38,9 @@ public class UserService(IUserRepository userRepository) : IUserService
             {
                 return new Result<CreateUserResponse>(null, false, Error.Conflict(nameof(CreateUser), $"User {request.Email} already exists"));
             }
-            
-            return new Result<CreateUserResponse>(new CreateUserResponse(user), true, Error.None);
+
+            var token = tokenProvider.GenerateToken(user);
+            return new Result<CreateUserResponse>(new CreateUserResponse(user, token), true, Error.None);
         }
         catch (Exception e)
         {

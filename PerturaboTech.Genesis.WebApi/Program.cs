@@ -5,8 +5,10 @@ using PerturaboTech.Genesis.WebApi.Apis.Users;
 using PerturaboTech.Genesis.WebApi.Data;
 using PerturaboTech.Genesis.WebApi.Helpers;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions;
+using PerturaboTech.Genesis.WebApi.Services.Abstractions.Infrastructure;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions.Repository;
 using PerturaboTech.Genesis.WebApi.Services.Implementations;
+using PerturaboTech.Genesis.WebApi.Services.Implementations.Infrastructure;
 using PerturaboTech.Genesis.WebApi.Services.Implementations.Repository;
 
 namespace PerturaboTech.Genesis.WebApi;
@@ -40,6 +42,10 @@ public class Program
         services.AddAuthorization();
         services.AddSwaggerGen();
 
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ITokenProvider, TokenProvider>();
+        
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())

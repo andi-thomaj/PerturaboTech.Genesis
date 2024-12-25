@@ -4,6 +4,7 @@ using PerturaboTech.Genesis.WebApi.Apis.Users.Responses;
 using PerturaboTech.Genesis.WebApi.Apis.Users.Validations;
 using PerturaboTech.Genesis.WebApi.Helpers;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions;
+using PerturaboTech.Genesis.WebApi.Services.Abstractions.Infrastructure;
 
 namespace PerturaboTech.Genesis.WebApi.Apis.Users;
 
@@ -11,10 +12,12 @@ public static class UserEndpoints
 {
         public static IEndpointRouteBuilder MapUsersEndpoints(this IEndpointRouteBuilder builder)
         {
-            var routeGroupBuilder = builder.MapGroup("api/users").RequireAuthorization();
+            var routeGroupBuilder = builder.MapGroup("api/users")
+                .WithOpenApi()
+                .RequireAuthorization();
 
-            routeGroupBuilder.MapGet("{email}", GetUserByEmail).WithOpenApi();
-            routeGroupBuilder.MapPost(string.Empty, CreateUser);
+            routeGroupBuilder.MapGet("{email}", GetUserByEmail);
+            routeGroupBuilder.MapPost(string.Empty, CreateUser).AllowAnonymous();
             routeGroupBuilder.MapPut(string.Empty, UpdateUser);
             routeGroupBuilder.MapDelete("{id:guid}", DeleteUserById);
 

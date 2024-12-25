@@ -4,7 +4,7 @@ namespace PerturaboTech.Genesis.WebApi.Apis.Users.Responses;
 
 public record CreateUserResponse
 {
-    public CreateUserResponse(User user)
+    public CreateUserResponse(User user, string jwt)
     {
         Id = user.Id;
         FirstName = user.FirstName;
@@ -13,6 +13,7 @@ public record CreateUserResponse
         Email = user.Email;
         GooglePictureUrl = user.PictureUrl;
         FrontendTheme = user.FrontendTheme;
+        Jwt = jwt;
         IsBlocked = user.IsBlocked;
         IsDeleted = user.IsDeleted;
         CreatedAt = user.CreatedAt;
@@ -25,6 +26,7 @@ public record CreateUserResponse
     public string Email { get; init; }
     public string? GooglePictureUrl { get; init; }
     public string? FrontendTheme { get; init; }
+    public string Jwt { get; init; }
     public bool IsBlocked { get; init; }
     public bool IsDeleted { get; init; }
     public DateTimeOffset CreatedAt { get; init; }
