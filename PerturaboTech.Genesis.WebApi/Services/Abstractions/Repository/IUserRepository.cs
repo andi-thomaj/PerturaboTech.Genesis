@@ -9,4 +9,6 @@ public interface IUserRepository
     Task<User?> CreateUser(CreateUserRequest request);
     Task<User?> UpdateUser(UpdateUserRequest request);
     Task<bool> DeleteUserById(Guid id);
+    Task<RefreshToken> CreateRefreshToken(Guid userId);
+    Task<RefreshToken?> GetRefreshToken(string token);
 }

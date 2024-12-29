@@ -4,7 +4,7 @@ using PerturaboTech.Genesis.WebApi.Data.Entities;
 
 namespace PerturaboTech.Genesis.WebApi.Data.Configurations;
 
-public class UserConfigurations : IEntityTypeConfiguration<User>
+internal sealed class UserConfigurations : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {

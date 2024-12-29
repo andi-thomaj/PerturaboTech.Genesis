@@ -58,4 +58,25 @@ public class UserRepository(ApplicationDbContext dbContext) : IUserRepository
         
         return true;
     }
+    
+    public async Task<RefreshToken> CreateRefreshToken(Guid userId)
+    {
+        var refreshToken = new RefreshToken
+        {
+            Id = Guid.NewGuid(),
+            Token = Guid.NewGuid().ToString(),
+            ExpiresOnUtc = DateTime.UtcNow.AddDays(7),
+            UserId = userId
+        };
+
+        await dbContext.RefreshTokens.AddAsync(refreshToken);
+        await dbContext.SaveChangesAsync();
+
+        return refreshToken;
+    }
+    
+    public async Task<RefreshToken?> GetRefreshToken(string token)
+        => await dbContext.RefreshTokens
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Token == token);
 }

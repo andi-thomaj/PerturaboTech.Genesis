@@ -115,4 +115,21 @@ public static class UserEndpoints
         
         return TypedResults.Ok();
     }
+    
+    private static async Task<Results<Ok, NotFound<Error>, BadRequest<Error>>> GetRefreshToken(string email,
+        IUserService userService)
+    {
+        var result = await userService.DeleteUserByEmail(email);
+        
+        if (result.IsFailure)
+        {
+            return result.Error.Type switch
+            {
+                ErrorType.NotFound => TypedResults.NotFound(result.Error),
+                _ => TypedResults.BadRequest(result.Error)
+            };
+        }
+        
+        return TypedResults.Ok();
+    }
 }
