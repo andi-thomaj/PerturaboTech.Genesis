@@ -17,7 +17,8 @@ public static class UserEndpoints
                 .RequireAuthorization();
 
             routeGroupBuilder.MapGet("{email}", GetUserByEmail);
-            routeGroupBuilder.MapPost(string.Empty, CreateUser).AllowAnonymous();
+            routeGroupBuilder.MapPost(string.Empty, CreateUser)
+                .AllowAnonymous();
             routeGroupBuilder.MapPut(string.Empty, UpdateUser);
             routeGroupBuilder.MapDelete("{id:guid}", DeleteUserById);
 

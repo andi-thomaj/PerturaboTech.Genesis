@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using PerturaboTech.Genesis.WebApi.Apis.Users;
 using PerturaboTech.Genesis.WebApi.Data;
 using PerturaboTech.Genesis.WebApi.Helpers;
+using PerturaboTech.Genesis.WebApi.Helpers.Configurations;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions.Infrastructure;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions.Repository;
@@ -20,6 +21,17 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         var configuration = builder.Configuration;
         var services = builder.Services;
+        var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        services.AddCors(options =>
+        {
+            options.AddPolicy(name: MyAllowSpecificOrigins,
+                policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+        });
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         Ensure.NotNullOrEmpty(connectionString);
         services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
@@ -46,6 +58,11 @@ public class Program
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITokenProvider, TokenProvider>();
         
+        services.AddOptions<JwtSettings>()
+            .Bind(configuration.GetSection(JwtSettings.SectionName))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+        
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
@@ -57,11 +74,12 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+        app.UseCors(MyAllowSpecificOrigins);
         app.UseAuthentication();
         app.UseAuthorization();
         
         app.MapUsersEndpoints();
 
-        app.Run();
+        await app.RunAsync();
     }
 }
