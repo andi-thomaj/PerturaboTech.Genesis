@@ -20,6 +20,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Apis\Countries\" />
+      <Folder Include="Apis\GeneticFiles\" />
+      <Folder Include="Apis\Inspections\" />
+      <Folder Include="Apis\Zones\" />
       <Folder Include="Data\Migrations\" />
     </ItemGroup>
 
