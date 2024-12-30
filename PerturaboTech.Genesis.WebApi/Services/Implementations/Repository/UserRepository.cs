@@ -14,7 +14,7 @@ public class UserRepository(ApplicationDbContext dbContext) : IUserRepository
             .Where(x => x.Email == email)
             .FirstOrDefaultAsync();
 
-    public async Task<User?> CreateUser(CreateUserRequest request)
+    public async Task<User?> RegisterUserByEmailAndPassword(RegisterUserWithEmailAndPasswordRequest request)
     {
         await dbContext.Users.AddAsync(request.GetUserEntity());
         

@@ -44,6 +44,6 @@ internal sealed class UserConfigurations : IEntityTypeConfiguration<User>
 
         builder
             .Property(x => x.PictureUrl)
-            .IsRequired();
+            .IsRequired(false);
     }
 }

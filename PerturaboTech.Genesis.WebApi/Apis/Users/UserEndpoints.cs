@@ -4,7 +4,6 @@ using PerturaboTech.Genesis.WebApi.Apis.Users.Responses;
 using PerturaboTech.Genesis.WebApi.Apis.Users.Validations;
 using PerturaboTech.Genesis.WebApi.Helpers;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions;
-using PerturaboTech.Genesis.WebApi.Services.Abstractions.Infrastructure;
 
 namespace PerturaboTech.Genesis.WebApi.Apis.Users;
 
@@ -17,10 +16,13 @@ public static class UserEndpoints
                 .RequireAuthorization();
 
             routeGroupBuilder.MapGet("{email}", GetUserByEmail);
-            routeGroupBuilder.MapPost(string.Empty, CreateUser)
-                .AllowAnonymous();
             routeGroupBuilder.MapPut(string.Empty, UpdateUser);
             routeGroupBuilder.MapDelete("{id:guid}", DeleteUserById);
+            routeGroupBuilder.MapPost("login", LoginWithEmailAndPassword)
+                .AllowAnonymous();
+            routeGroupBuilder.MapPost("refresh-token", LoginWithRefreshToken);
+            routeGroupBuilder.MapPost("register", RegisterUserWithEmailAndPassword)
+                .AllowAnonymous();
 
             return builder;
         }
@@ -49,32 +51,7 @@ public static class UserEndpoints
 
             return TypedResults.Ok(result.Value);
         }
-    
-    private static async Task<Results<Ok<CreateUserResponse>, NotFound<Error>, BadRequest<Error>, Conflict<Error>>> CreateUser(CreateUserRequest request,
-        IUserService userService)
-    {
-        CreateUserRequestValidator validator = new();
-        var validationResult = await validator.ValidateAsync(request);
-        if (!validationResult.IsValid)
-        {
-            return TypedResults.BadRequest(Error.FluentValidationError(nameof(CreateUser), validationResult.Errors));
-        }
         
-        var result = await userService.CreateUser(request);
-    
-        if (result.IsFailure)
-        {
-            return result.Error.Type switch
-            {
-                ErrorType.Conflict => TypedResults.Conflict(result.Error),
-                ErrorType.NotFound => TypedResults.NotFound(result.Error),
-                _ => TypedResults.BadRequest(result.Error)
-            };
-        }
-    
-        return TypedResults.Ok(result.Value);
-    }
-    
     private static async Task<Results<Ok<UpdateUserResponse>, NotFound<Error>, BadRequest<Error>>> UpdateUser(
         UpdateUserRequest request, IUserService userService)
     {
@@ -116,10 +93,10 @@ public static class UserEndpoints
         return TypedResults.Ok();
     }
     
-    private static async Task<Results<Ok, NotFound<Error>, BadRequest<Error>>> LoginWithEmailAndPassword(LoginWithEmailAndPasswordRequest request,
+    private static async Task<Results<Ok<LoginWithEmailAndPasswordResponse>, NotFound<Error>, BadRequest<Error>>> LoginWithEmailAndPassword(LoginWithEmailAndPasswordRequest request,
         IUserService userService)
     {
-        var result = await userService.GetUserByEmail(request.Email);
+        var result = await userService.LoginWithEmailAndPassword(request);
         
         if (result.IsFailure)
         {
@@ -130,10 +107,10 @@ public static class UserEndpoints
             };
         }
         
-        return TypedResults.Ok();
+        return TypedResults.Ok(result.Value);
     }
     
-    private static async Task<Results<Ok, NotFound<Error>, BadRequest<Error>>> LoginWithRefreshToken(LoginWithRefreshTokenRequest request,
+    private static async Task<Results<Ok<LoginWithRefreshTokenResponse>, NotFound<Error>, BadRequest<Error>>> LoginWithRefreshToken(LoginWithRefreshTokenRequest request,
         IUserService userService)
     {
         var result = await userService.LoginWithRefreshToken(request);
@@ -147,6 +124,31 @@ public static class UserEndpoints
             };
         }
         
-        return TypedResults.Ok();
+        return TypedResults.Ok(result.Value);
+    }
+    
+    private static async Task<Results<Ok<RegisterUserWithEmailAndPasswordResponse>, Conflict<Error>, NotFound<Error>, BadRequest<Error>>> RegisterUserWithEmailAndPassword(RegisterUserWithEmailAndPasswordRequest request,
+        IUserService userService)
+    {
+        RegisterUserWithEmailAndPasswordRequestValidator validator = new();
+        var validationResult = await validator.ValidateAsync(request);
+        if (!validationResult.IsValid)
+        {
+            return TypedResults.BadRequest(Error.FluentValidationError(nameof(RegisterUserWithEmailAndPassword), validationResult.Errors));
+        }
+        
+        var result = await userService.RegisterUserWithEmailAndPassword(request);
+    
+        if (result.IsFailure)
+        {
+            return result.Error.Type switch
+            {
+                ErrorType.Conflict => TypedResults.Conflict(result.Error),
+                ErrorType.NotFound => TypedResults.NotFound(result.Error),
+                _ => TypedResults.BadRequest(result.Error)
+            };
+        }
+    
+        return TypedResults.Ok(result.Value);
     }
 }

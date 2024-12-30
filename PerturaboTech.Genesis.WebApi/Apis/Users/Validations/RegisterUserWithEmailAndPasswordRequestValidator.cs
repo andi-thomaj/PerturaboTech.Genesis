@@ -3,19 +3,21 @@ using PerturaboTech.Genesis.WebApi.Apis.Users.Requests;
 
 namespace PerturaboTech.Genesis.WebApi.Apis.Users.Validations;
 
-public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
+public class RegisterUserWithEmailAndPasswordRequestValidator : AbstractValidator<RegisterUserWithEmailAndPasswordRequest>
 {
-    public CreateUserRequestValidator()
+    public RegisterUserWithEmailAndPasswordRequestValidator()
     {
         RuleFor(request => request.FirstName)
             .NotEmpty()
             .NotNull()
             .MaximumLength(50)
             .MinimumLength(3);
+        
+        RuleFor(request => request.MiddleName)
+            .MaximumLength(50)
+            .MinimumLength(3);
 
         RuleFor(request => request.LastName)
-            .NotEmpty()
-            .NotNull()
             .MaximumLength(50)
             .MinimumLength(3);
         
@@ -29,10 +31,5 @@ public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
             .NotNull()
             .MaximumLength(50)
             .MinimumLength(5);
-        
-        RuleFor(request => request.FrontendTheme)
-            .NotEmpty()
-            .NotNull()
-            .MaximumLength(50);
     }
 }

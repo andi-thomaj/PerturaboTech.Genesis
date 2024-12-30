@@ -29,26 +29,6 @@ public class UserService(IUserRepository userRepository, ITokenProvider tokenPro
         }
     }
 
-    public async Task<Result<CreateUserResponse>> CreateUser(CreateUserRequest request)
-    {
-        try
-        {
-            var user = await userRepository.CreateUser(request);
-            
-            if (user is null)
-            {
-                return new Result<CreateUserResponse>(null, false, Error.Conflict(nameof(CreateUser), $"User {request.Email} already exists"));
-            }
-
-            var token = tokenProvider.GenerateToken(user);
-            return new Result<CreateUserResponse>(new CreateUserResponse(user, token), true, Error.None);
-        }
-        catch (Exception e)
-        {
-            return new Result<CreateUserResponse>(null, false, Error.Problem(nameof(CreateUser), e.Message));
-        }
-    }
-
     public async Task<Result<UpdateUserResponse>> UpdateUser(UpdateUserRequest request)
     {
         try
@@ -104,8 +84,7 @@ public class UserService(IUserRepository userRepository, ITokenProvider tokenPro
             true, Error.None);
     }
 
-    public async Task<Result<LoginWithEmailAndPasswordResponse>> LoginWithEmailAndPassword(
-        LoginWithEmailAndPasswordRequest request)
+    public async Task<Result<LoginWithEmailAndPasswordResponse>> LoginWithEmailAndPassword(LoginWithEmailAndPasswordRequest request)
     {
         var user = await userRepository.GetUserByEmail(request.Email);
 
@@ -125,5 +104,20 @@ public class UserService(IUserRepository userRepository, ITokenProvider tokenPro
         return new Result<LoginWithEmailAndPasswordResponse>(new LoginWithEmailAndPasswordResponse(jwt, refreshToken.Token), true, Error.None);
     }
     
-    
+    public async Task<Result<RegisterUserWithEmailAndPasswordResponse>> RegisterUserWithEmailAndPassword(RegisterUserWithEmailAndPasswordRequest request)
+    {
+        var user = await userRepository.GetUserByEmail(request.Email);
+
+        if (user is not null)
+        {
+            return new Result<RegisterUserWithEmailAndPasswordResponse>(null, false, Error.Conflict($"{nameof(RegisterUserWithEmailAndPassword)}", $"User with email: {request.Email} already exists"));
+        }
+
+        user = await userRepository.RegisterUserByEmailAndPassword(request);
+        
+        var jwt = tokenProvider.GenerateToken(user!);
+        var refreshToken = await userRepository.CreateRefreshToken(user!.Id);
+        
+        return new Result<RegisterUserWithEmailAndPasswordResponse>(new RegisterUserWithEmailAndPasswordResponse(jwt, refreshToken.Token), true, Error.None);
+    }
 }
