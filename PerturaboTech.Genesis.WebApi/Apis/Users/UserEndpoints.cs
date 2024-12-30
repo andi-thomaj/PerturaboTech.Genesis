@@ -116,10 +116,27 @@ public static class UserEndpoints
         return TypedResults.Ok();
     }
     
-    private static async Task<Results<Ok, NotFound<Error>, BadRequest<Error>>> GetRefreshToken(string email,
+    private static async Task<Results<Ok, NotFound<Error>, BadRequest<Error>>> LoginWithEmailAndPassword(LoginWithEmailAndPasswordRequest request,
         IUserService userService)
     {
-        var result = await userService.DeleteUserByEmail(email);
+        var result = await userService.GetUserByEmail(request.Email);
+        
+        if (result.IsFailure)
+        {
+            return result.Error.Type switch
+            {
+                ErrorType.NotFound => TypedResults.NotFound(result.Error),
+                _ => TypedResults.BadRequest(result.Error)
+            };
+        }
+        
+        return TypedResults.Ok();
+    }
+    
+    private static async Task<Results<Ok, NotFound<Error>, BadRequest<Error>>> LoginWithRefreshToken(LoginWithRefreshTokenRequest request,
+        IUserService userService)
+    {
+        var result = await userService.LoginWithRefreshToken(request);
         
         if (result.IsFailure)
         {

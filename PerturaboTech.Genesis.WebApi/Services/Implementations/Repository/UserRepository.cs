@@ -75,8 +75,8 @@ public class UserRepository(ApplicationDbContext dbContext) : IUserRepository
         return refreshToken;
     }
     
-    public async Task<RefreshToken?> GetRefreshToken(string token)
+    public async Task<RefreshToken?> GetRefreshToken(string refreshToken)
         => await dbContext.RefreshTokens
-            .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Token == token);
+            .Include(x => x.User)
+            .FirstOrDefaultAsync(x => x.Token == refreshToken);
 }

@@ -10,5 +10,5 @@ public interface IUserRepository
     Task<User?> UpdateUser(UpdateUserRequest request);
     Task<bool> DeleteUserById(Guid id);
     Task<RefreshToken> CreateRefreshToken(Guid userId);
-    Task<RefreshToken?> GetRefreshToken(string token);
+    Task<RefreshToken?> GetRefreshToken(string refreshToken);
 }

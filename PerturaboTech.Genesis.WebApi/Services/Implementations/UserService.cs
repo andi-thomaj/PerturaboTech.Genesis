@@ -1,5 +1,6 @@
 ﻿using PerturaboTech.Genesis.WebApi.Apis.Users.Requests;
 using PerturaboTech.Genesis.WebApi.Apis.Users.Responses;
+using PerturaboTech.Genesis.WebApi.Data.Entities;
 using PerturaboTech.Genesis.WebApi.Helpers;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions;
 using PerturaboTech.Genesis.WebApi.Services.Abstractions.Infrastructure;
@@ -84,6 +85,44 @@ public class UserService(IUserRepository userRepository, ITokenProvider tokenPro
         {
             return new Result(false, Error.Problem(nameof(DeleteUserById), e.Message));
         }
+    }
+
+    public async Task<Result<LoginWithRefreshTokenResponse>> LoginWithRefreshToken(LoginWithRefreshTokenRequest request)
+    {
+        RefreshToken? refreshToken = await userRepository.GetRefreshToken(request.RefreshToken);
+
+        if (refreshToken is null || refreshToken.ExpiresOnUtc < DateTime.UtcNow)
+        {
+            return new Result<LoginWithRefreshTokenResponse>(null,false, Error.NotFound(nameof(LoginWithRefreshToken), "Refresh token is invalid or expired"));
+        }
+
+        string jwt = tokenProvider.GenerateToken(refreshToken.User);
+
+        var newRefreshToken = await userRepository.CreateRefreshToken(refreshToken.User.Id);
+
+        return new Result<LoginWithRefreshTokenResponse>(new LoginWithRefreshTokenResponse(jwt, newRefreshToken.Token),
+            true, Error.None);
+    }
+
+    public async Task<Result<LoginWithEmailAndPasswordResponse>> LoginWithEmailAndPassword(
+        LoginWithEmailAndPasswordRequest request)
+    {
+        var user = await userRepository.GetUserByEmail(request.Email);
+
+        if (user is null)
+        {
+            return new Result<LoginWithEmailAndPasswordResponse>(null, false, Error.NotFound($"{nameof(LoginWithEmailAndPassword)}", $"User with email: {request.Email} was not found"));
+        }
+
+        if (user.Password != request.Password)
+        {
+            return new Result<LoginWithEmailAndPasswordResponse>(null, false, Error.Unauthorized($"{nameof(LoginWithEmailAndPassword)}", "Invalid password"));
+        }
+        
+        var jwt = tokenProvider.GenerateToken(user);
+        var refreshToken = await userRepository.CreateRefreshToken(user.Id);
+        
+        return new Result<LoginWithEmailAndPasswordResponse>(new LoginWithEmailAndPasswordResponse(jwt, refreshToken.Token), true, Error.None);
     }
     
     
