@@ -8,6 +8,13 @@ internal sealed class CountryConfiguration : IEntityTypeConfiguration<Country>
 {
     public void Configure(EntityTypeBuilder<Country> builder)
     {
-        throw new NotImplementedException();
+        builder.HasKey(x => x.Id);
+        
+        builder
+            .Property(x => x.Name)
+            .HasMaxLength(50)
+            .IsRequired();
+        
+        builder.HasIndex(x => x.Name).IsUnique();
     }
 }

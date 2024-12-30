@@ -45,5 +45,7 @@ internal sealed class UserConfigurations : IEntityTypeConfiguration<User>
         builder
             .Property(x => x.PictureUrl)
             .IsRequired(false);
+        
+        builder.HasIndex(x => x.Email).IsUnique();
     }
 }

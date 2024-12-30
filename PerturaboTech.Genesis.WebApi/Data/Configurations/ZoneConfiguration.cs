@@ -8,6 +8,13 @@ internal sealed class ZoneConfiguration : IEntityTypeConfiguration<Zone>
 {
     public void Configure(EntityTypeBuilder<Zone> builder)
     {
-        throw new NotImplementedException();
+        builder.HasKey(x => x.Id);
+        
+        builder
+            .Property(x => x.Name)
+            .HasMaxLength(50)
+            .IsRequired();
+        
+        builder.HasIndex(x => x.Name).IsUnique();
     }
 }
