@@ -13,4 +13,5 @@ public class User : BaseEntity
     public bool IsDeleted { get; set; }
     public int LoginAttemptsCount { get; set; }
     public string? FrontendTheme { get; set; }
+    public List<Inspection> Inspections { get; set; } = [];
 }
