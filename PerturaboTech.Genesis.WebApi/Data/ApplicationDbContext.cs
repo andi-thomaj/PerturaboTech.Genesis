@@ -12,6 +12,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<CountryZone> CountriesZones { get; set; }
     public DbSet<GeneticFile> GeneticFiles { get; set; }
     public DbSet<Inspection> Inspections { get; set; }
+    
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
