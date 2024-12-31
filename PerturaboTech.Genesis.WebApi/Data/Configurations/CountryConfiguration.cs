@@ -14,7 +14,12 @@ internal sealed class CountryConfiguration : IEntityTypeConfiguration<Country>
             .Property(x => x.Name)
             .HasMaxLength(50)
             .IsRequired();
-        
         builder.HasIndex(x => x.Name).IsUnique();
+
+        // One-to-Many: Country -> Zone
+        builder.HasMany(c => c.Zones)
+            .WithOne(z => z.Country)
+            .HasForeignKey(z => z.CountryId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
