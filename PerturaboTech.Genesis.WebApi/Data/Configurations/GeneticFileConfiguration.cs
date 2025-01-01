@@ -8,6 +8,20 @@ internal sealed class GeneticFileConfiguration : IEntityTypeConfiguration<Geneti
 {
     public void Configure(EntityTypeBuilder<GeneticFile> builder)
     {
-        throw new NotImplementedException();
+        builder.HasKey(x => x.Id);
+
+        builder
+            .Property(x => x.FileData)
+            .IsRequired();
+        
+        builder
+            .Property(x => x.FileName)
+            .HasMaxLength(50)
+            .IsRequired();
+
+        builder
+            .Property(x => x.FileExtension)
+            .HasMaxLength(50)
+            .IsRequired();
     }
 }

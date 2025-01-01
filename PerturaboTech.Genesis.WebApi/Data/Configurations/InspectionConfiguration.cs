@@ -8,6 +8,16 @@ internal sealed class InspectionConfiguration : IEntityTypeConfiguration<Inspect
 {
     public void Configure(EntityTypeBuilder<Inspection> builder)
     {
-        throw new NotImplementedException();
+        builder.HasKey(x => x.Id);
+        
+        builder
+            .HasOne(x => x.GeneticFile)
+            .WithOne(x => x.Inspection)
+            .HasForeignKey<GeneticFile>(x => x.InspectionId);
+
+        builder
+            .HasOne(x => x.User)
+            .WithMany(x => x.Inspections)
+            .HasForeignKey(x => x.UserId);
     }
 }

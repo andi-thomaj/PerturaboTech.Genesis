@@ -15,12 +15,5 @@ internal sealed class ZoneConfiguration : IEntityTypeConfiguration<Zone>
             .HasMaxLength(50)
             .IsRequired();
         builder.HasIndex(x => x.Name).IsUnique();
-
-        // Foreign Key with Country
-        builder.HasOne(z => z.Country)
-            .WithMany(c => c.Zones)
-            .HasForeignKey(z => z.CountryId)
-            .OnDelete(DeleteBehavior.Cascade);
-        
     }
 }
