@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PerturaboTech.Genesis.Domain\PerturaboTech.Genesis.Domain.csproj" />
+    <ProjectReference Include="..\PerturaboTech.Genesis.Test.Shared\PerturaboTech.Genesis.Test.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.35" />
   </ItemGroup>
 
 </Project>

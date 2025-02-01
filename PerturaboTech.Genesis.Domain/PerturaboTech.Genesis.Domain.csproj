@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PerturaboTech.Genesis.Shared\PerturaboTech.Genesis.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
