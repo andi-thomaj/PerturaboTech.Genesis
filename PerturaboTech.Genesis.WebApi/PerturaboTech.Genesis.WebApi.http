@@ -1,0 +1,6 @@
+@PerturaboTech.Genesis.WebApi_HostAddress = http://localhost:5104
+
+GET {{PerturaboTech.Genesis.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
