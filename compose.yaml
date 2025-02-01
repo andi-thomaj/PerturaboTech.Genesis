@@ -1,0 +1,6 @@
+﻿services:
+  perturabotech.genesis.webapi:
+    image: perturabotech.genesis.webapi
+    build:
+      context: .
+      dockerfile: PerturaboTech.Genesis.WebApi/Dockerfile
