@@ -1,8 +1,8 @@
 ﻿namespace PerturaboTech.Genesis.Shared.Configurations;
 
-public class JwtSettings
+public class JwtOptions
 {
-    internal const string SectionName = nameof(JwtSettings);
+    public const string SectionName = nameof(JwtOptions);
     public string Issuer { get; set; } = string.Empty;
     public string Audience { get; set; } = string.Empty;
     public string SecretKey { get; set; } = string.Empty;
