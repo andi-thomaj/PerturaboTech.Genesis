@@ -1,3 +1,7 @@
+using System.Reflection;
+using PerturaboTech.Genesis.Domain.Repositories;
+using PerturaboTech.Genesis.Infrastructure.Repositories;
+
 namespace PerturaboTech.Genesis.WebApi;
 
 public class Program
@@ -5,14 +9,19 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        var configuration = builder.Configuration;
+        var services = builder.Services;
         // Add services to the container.
-        builder.Services.AddAuthorization();
+        services.AddAuthorization();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
 
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddMediatR(cfg =>
+            cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())
+        );
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
