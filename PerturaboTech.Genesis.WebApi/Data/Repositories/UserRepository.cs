@@ -1,7 +1,4 @@
-﻿using PerturaboTech.Genesis.Domain.Entities;
-using PerturaboTech.Genesis.Domain.Repositories;
-
-namespace PerturaboTech.Genesis.Infrastructure.Repositories;
+﻿namespace PerturaboTech.Genesis.WebApi.Data.Repositories;
 
 public class UserRepository(DapperContext dapperContext) : IUserRepository
 {

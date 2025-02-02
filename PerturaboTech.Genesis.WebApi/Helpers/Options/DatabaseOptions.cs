@@ -1,4 +1,4 @@
-﻿namespace PerturaboTech.Genesis.Shared.Configurations;
+﻿namespace PerturaboTech.Genesis.WebApi.Helpers.Options;
 
 public class DatabaseOptions
 {

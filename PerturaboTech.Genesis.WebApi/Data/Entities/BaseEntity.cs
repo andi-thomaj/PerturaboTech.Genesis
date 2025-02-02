@@ -1,4 +1,4 @@
-﻿namespace PerturaboTech.Genesis.Domain.Entities;
+﻿namespace PerturaboTech.Genesis.WebApi.Data.Entities;
 
 public class BaseEntity
 {

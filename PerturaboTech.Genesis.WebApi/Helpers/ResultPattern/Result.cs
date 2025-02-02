@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace PerturaboTech.Genesis.Shared;
+namespace PerturaboTech.Genesis.WebApi.Helpers.ResultPattern;
 
 
 public class Result

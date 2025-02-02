@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
-using PerturaboTech.Genesis.Shared.Configurations;
 using PerturaboTech.Genesis.WebApi;
+using PerturaboTech.Genesis.WebApi.Helpers.Options;
 using Testcontainers.PostgreSql;
 
 namespace PerturaboTech.Genesis.Test.IntegrationTests;

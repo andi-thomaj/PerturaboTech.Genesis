@@ -1,6 +1,6 @@
-﻿namespace PerturaboTech.Genesis.Domain.Entities;
+﻿namespace PerturaboTech.Genesis.WebApi.Data.Entities;
 
-public class User
+public class User : BaseEntity
 {
     public string FirstName { get; set; } = string.Empty;
     public string? MiddleName { get; set; }

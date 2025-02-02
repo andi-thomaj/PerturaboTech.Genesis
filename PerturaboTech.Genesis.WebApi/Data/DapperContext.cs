@@ -1,9 +1,9 @@
 ﻿using System.Data;
 using Microsoft.Extensions.Options;
 using Npgsql;
-using PerturaboTech.Genesis.Shared.Configurations;
+using PerturaboTech.Genesis.WebApi.Helpers.Options;
 
-namespace PerturaboTech.Genesis.Infrastructure;
+namespace PerturaboTech.Genesis.WebApi.Data;
 
 public class DapperContext(IOptions<DatabaseOptions> databaseOptions)
 {

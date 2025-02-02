@@ -23,8 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PerturaboTech.Genesis.Domain\PerturaboTech.Genesis.Domain.csproj" />
-      <ProjectReference Include="..\PerturaboTech.Genesis.Infrastructure\PerturaboTech.Genesis.Infrastructure.csproj" />
       <ProjectReference Include="..\PerturaboTech.Genesis.WebApi\PerturaboTech.Genesis.WebApi.csproj" />
     </ItemGroup>
 

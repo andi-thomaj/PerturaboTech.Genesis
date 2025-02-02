@@ -1,4 +1,4 @@
-﻿namespace PerturaboTech.Genesis.Shared;
+﻿namespace PerturaboTech.Genesis.WebApi.Helpers.ResultPattern;
 
 public enum ErrorType
 {

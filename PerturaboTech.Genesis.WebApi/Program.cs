@@ -1,8 +1,7 @@
 using System.Reflection;
-using PerturaboTech.Genesis.Domain.Repositories;
-using PerturaboTech.Genesis.Infrastructure;
-using PerturaboTech.Genesis.Infrastructure.Repositories;
-using PerturaboTech.Genesis.Shared.Configurations;
+using PerturaboTech.Genesis.WebApi.Data;
+using PerturaboTech.Genesis.WebApi.Data.Repositories;
+using PerturaboTech.Genesis.WebApi.Helpers.Options;
 
 namespace PerturaboTech.Genesis.WebApi;
 

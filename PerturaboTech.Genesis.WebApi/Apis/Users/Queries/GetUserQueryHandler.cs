@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using PerturaboTech.Genesis.Domain.Repositories;
+using PerturaboTech.Genesis.WebApi.Data.Repositories;
 
 namespace PerturaboTech.Genesis.WebApi.Apis.Users.Queries;
 

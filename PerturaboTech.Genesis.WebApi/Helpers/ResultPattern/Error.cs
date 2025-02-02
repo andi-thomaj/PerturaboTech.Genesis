@@ -1,4 +1,6 @@
-﻿namespace PerturaboTech.Genesis.Shared;
+﻿using PerturaboTech.Genesis.Shared;
+
+namespace PerturaboTech.Genesis.WebApi.Helpers.ResultPattern;
 
 
 public record Error
