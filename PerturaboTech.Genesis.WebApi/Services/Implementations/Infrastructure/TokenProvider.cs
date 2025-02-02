@@ -12,10 +12,10 @@ namespace PerturaboTech.Genesis.WebApi.Services.Implementations.Infrastructure;
 
 public class TokenProvider(IOptions<JwtOptions> jwtOptions) : ITokenProvider
 {
-    private readonly JwtOptions _jwtSettings = jwtOptions.Value;
+    private readonly JwtOptions _jwtOptions = jwtOptions.Value;
     public string GenerateToken(User user)
     {
-        var secret = _jwtSettings.SecretKey;
+        var secret = _jwtOptions.SecretKey;
         var key = Encoding.ASCII.GetBytes(secret);
         var tokenHandler = new JwtSecurityTokenHandler();
         var tokenDescriptor = new SecurityTokenDescriptor
@@ -27,8 +27,8 @@ public class TokenProvider(IOptions<JwtOptions> jwtOptions) : ITokenProvider
             ]),
             Expires = DateTime.UtcNow.AddHours(1),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-            Issuer = _jwtSettings.Issuer,
-            Audience = _jwtSettings.Audience
+            Issuer = _jwtOptions.Issuer,
+            Audience = _jwtOptions.Audience
         };
         
         var token = tokenHandler.CreateToken(tokenDescriptor);
