@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PerturaboTech.Genesis.WebApi.Data;
-using PerturaboTech.Genesis.WebApi.Data.Repositories;
+using PerturaboTech.Genesis.WebApi.Services.Abstractions.Repositories;
 
 namespace PerturaboTech.Genesis.Test.IntegrationTests;
 
